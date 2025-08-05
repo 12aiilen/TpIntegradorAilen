@@ -1,0 +1,76 @@
+create DATABASE cliente;
+USE cliente;
+
+create table clientes(
+idCliente int unsigned auto_increment primary key,
+nombre varchar(20) not null,
+apellido varchar (20) not null,
+cuil char(11) not null unique,
+email varchar(80) not null, 
+fechaRegistro timestamp default current_timestamp ,
+fechaActualizacion timestamp default current_timestamp on update current_timestamp
+);
+
+create table telefonosCliente(
+idTelefono int unsigned auto_increment primary key,
+idCliente int unsigned not null, 
+telefono varchar (25) not null, 
+tipoTelefono enum('celular', 'fijo', 'otro') default 'celular',
+constraint fk_telefonoCliente
+foreign key (idCliente) references clientes (idCliente)
+on delete cascade
+);
+
+create table direccionesCliente(
+idDireccion int unsigned auto_increment primary key,
+idCliente int unsigned not null,
+calle varchar(40) not null,
+numero varchar(10) not null,
+piso varchar(10) null,
+dpto varchar(10) null, 
+ciudad varchar (30) not null,
+provincia varchar(30) null,
+cp varchar(10) null,
+tipoDireccion enum('fiscal', 'envio', 'otro') default 'envio',
+constraint fk_direccionCliente
+foreign key (idCliente) references clientes(idCliente)
+on delete cascade
+);
+
+
+
+
+PARA Q SE MUESTRE TODO DE UNA:
+
+
+SELECT * FROM cliente.clientes;
+SELECT * FROM cliente.telefonoscliente;
+SELECT * FROM cliente.direccionescliente;
+
+
+SELECT 
+    c.idCliente,
+    c.nombre,
+    c.apellido,
+    c.cuil,
+    c.email,
+    t.idTelefono,
+    t.telefono,
+    t.tipoTelefono,
+    d.idDireccion,
+    d.calle,
+    d.numero,
+    d.piso,
+    d.dpto,
+    d.ciudad,
+    d.provincia,
+    d.cp,
+    d.tipoDireccion
+FROM 
+    clientes c
+LEFT JOIN 
+    telefonosCliente t ON c.idCliente = t.idCliente
+LEFT JOIN 
+    direccionesCliente d ON c.idCliente = d.idCliente
+ORDER BY 
+    c.idCliente, t.idTelefono, d.idDireccion;

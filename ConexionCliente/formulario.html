@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Cliente Completo</title>
+    <script>
+        function agregarTelefono() {
+            const container = document.getElementById("telefonos");
+            const div = document.createElement("div");
+            div.className = "form-group";
+            div.innerHTML = `
+                <label>Teléfono:</label>
+                <input type="text" name="telefono[]" required><br>
+                <label>Tipo de Teléfono:</label>
+                <select name="tipoTelefono[]">
+                    <option value="celular">Celular</option>
+                    <option value="fijo">Fijo</option>
+                    <option value="otro">Otro</option>
+                </select><br><br>
+            `;
+            container.appendChild(div);
+        }
+
+        function agregarDireccion() {
+            const container = document.getElementById("direcciones");
+            const div = document.createElement("div");
+            div.className = "form-group";
+            div.innerHTML = `
+                <label>Calle:</label>
+                <input type="text" name="calle[]" required><br>
+                <label>Número:</label>
+                <input type="text" name="numero[]" required><br>
+                <label>Piso:</label>
+                <input type="text" name="piso[]"><br>
+                <label>Dpto:</label>
+                <input type="text" name="dpto[]"><br>
+                <label>Ciudad:</label>
+                <input type="text" name="ciudad[]" required><br>
+                <label>Provincia:</label>
+                <input type="text" name="provincia[]" required><br>
+                <label>Código Postal:</label>
+                <input type="text" name="cp[]"><br>
+                <label>Tipo de Dirección:</label>
+                <select name="tipoDireccion[]">
+                    <option value="envio">Envío</option>
+                    <option value="fiscal">Fiscal</option>
+                    <option value="otro">Otro</option>
+                </select><br><br>
+            `;
+            container.appendChild(div);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulario de Registro</h2>
+        <form action="procesarCliente.php" method="POST">
+            <h3>Datos del Cliente</h3>
+            <label>Nombre:</label>
+            <input type="text" name="nombre" required><br>
+            <label>Apellido:</label>
+            <input type="text" name="apellido" required><br>
+            <label>CUIL:</label>
+            <input type="text" name="cuil" pattern="\d{11}" required><br>
+            <label>Email:</label>
+            <input type="email" name="email" required><br>
+
+            <h3>Teléfonos</h3>
+            <div id="telefonos">
+                <!-- Primer teléfono -->
+                <div class="form-group">
+                    <label>Teléfono:</label>
+                    <input type="text" name="telefono[]" required><br>
+                    <label>Tipo de Teléfono:</label>
+                    <select name="tipoTelefono[]">
+                        <option value="celular">Celular</option>
+                        <option value="fijo">Fijo</option>
+                        <option value="otro">Otro</option>
+                    </select><br><br>
+                </div>
+            </div>
+            <button type="button"  class="agregar-btn" onclick="agregarTelefono()">+ Agregar Teléfono</button><br><br>
+
+            <h3>Direcciones</h3>
+            <div id="direcciones">
+                <!-- Primer dirección -->
+                <div class="form-group">
+                    <label>Calle:</label>
+                    <input type="text" name="calle[]" required><br>
+                    <label>Número:</label>
+                    <input type="text" name="numero[]" required><br>
+                    <label>Piso:</label>
+                    <input type="text" name="piso[]"><br>
+                    <label>Dpto:</label>
+                    <input type="text" name="dpto[]"><br>
+                    <label>Ciudad:</label>
+                    <input type="text" name="ciudad[]" required><br>
+                    <label>Provincia:</label>
+                    <input type="text" name="provincia[]" required><br>
+                    <label>Código Postal:</label>
+                    <input type="text" name="cp[]"><br>
+                    <label>Tipo de Dirección:</label>
+                    <select name="tipoDireccion[]">
+                        <option value="envio">Envío</option>
+                        <option value="fiscal">Fiscal</option>
+                        <option value="otro">Otro</option>
+                    </select><br><br>
+                </div>
+            </div>
+            <button type="button"  class="agregar-btn" onclick="agregarDireccion()">+ Agregar Dirección</button><br><br>
+
+            <input type="submit" value="Guardar Cliente Completo">
+        </form>
+    </div>
+</body>
+</html>
